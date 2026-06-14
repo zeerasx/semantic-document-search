@@ -1,5 +1,6 @@
 from src.pdf_loader import PDFLoader
 from src.chunker import TextChunker
+from src.embedder import Embedder
 
 def main():
     # Ingestion
@@ -8,6 +9,7 @@ def main():
     text = loader.extract_text()
     
     #Chunking
+    print("////////////////////////////CHUNKING/////////////////////////////////////////////////////////")
     chunker = TextChunker(
         chunk_size=500,
         overlap=100
@@ -25,6 +27,16 @@ def main():
         print("======================================")
         print(chunk["chunk"])
 
+    # Embedding
+    print("///////////////////////////EMBEDDING//////////////////////////////////////////////////////////")
+    embedder = Embedder()
+    print("Embedding Chunks...")
+    embeddings = embedder.embed_chunks(chunks)
+    print("Embeddings Generated.")
+    print(f"Total Embeddings: {len(embeddings)}")
+    print(f"Embedding Dimension: {embeddings[0].shape}")
+    print("Sample Embedding:")
+    print(embeddings[0][:5])
 
 if __name__ == "__main__":    
     main()
