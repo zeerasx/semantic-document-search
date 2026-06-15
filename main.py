@@ -2,6 +2,7 @@ from src.pdf_loader import PDFLoader
 from src.chunker import TextChunker
 from src.embedder import Embedder
 from src.search import SemanticSearcher
+from src.vector_store import VectorStore
 
 def main():
     # Ingestion
@@ -45,7 +46,7 @@ def main():
     query = input( "Enter search query: ")
     query_embedding = embedder.embed_text(query)
 
-    ## Performing search
+    ## Performing Manual search
     searcher = SemanticSearcher()
     results = searcher.search(
         query_embedding=query_embedding,
@@ -60,6 +61,21 @@ def main():
         print(f"Score: {result['score']:.4f}")
         print("======================================")
         print(result["chunk"]["chunk"][:300])  # Print first 300 characters of the chunk
+
+    # Perform search using Vector Store
+    print("///////////////////////////VECTOR STORE SEARCH//////////////////////////////////////////////////////////")
+    vector_store = VectorStore()
+    vector_store.add_chunks(chunks, embeddings)
+    vector_store_results = vector_store.search(query_embedding=query_embedding, top_k=3)
+    for doc, distance in zip(
+        vector_store_results["documents"][0],
+        vector_store_results["distances"][0]
+    ):
+
+        print("\n")
+        print(f"Distance: {distance:.4f}")
+        print(doc[:300])
+        print("-" * 50)
 
 if __name__ == "__main__":    
     main()
