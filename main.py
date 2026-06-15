@@ -64,9 +64,17 @@ def main():
 
     # Perform search using Vector Store
     print("///////////////////////////VECTOR STORE SEARCH//////////////////////////////////////////////////////////")
+    
     vector_store = VectorStore()
-    vector_store.add_chunks(chunks, embeddings)
+    print(f"vector_store.collection.count(): {vector_store.collection.count()}")
+    if vector_store.collection.count()==0:
+        print("Vector Store is empty. Adding chunks to vector store...")
+        vector_store.add_chunks(chunks, embeddings)
+    else:
+        print("Vector Store already has chunks. Skipping addition.")
+
     vector_store_results = vector_store.search(query_embedding=query_embedding, top_k=3)
+    
     for doc, distance in zip(
         vector_store_results["documents"][0],
         vector_store_results["distances"][0]
