@@ -9,11 +9,10 @@ class IndexingPipeline:
     def __init__(
         self,
         pdf_path,
-        chunk_size,
-        overlap,
-        model_name
+        chunk_size=500,
+        overlap=100,
+        model_name="all-MiniLM-L6-v2"
     ):
-
         self.pdf_path = pdf_path
         self.chunk_size = chunk_size
         self.overlap = overlap
@@ -39,7 +38,9 @@ class IndexingPipeline:
         )
 
         embeddings = (
-            embedder.embed_chunks(chunks)
+            embedder.embed_chunks(
+                chunks
+            )
         )
 
         vector_store = VectorStore()
@@ -53,6 +54,7 @@ class IndexingPipeline:
 
         return (
             chunks,
+            embeddings,
             embedder,
             vector_store
         )
