@@ -1,0 +1,12 @@
+query,expected_keyword
+What is backpropagation?,backpropagation
+Explain backpropagation,backpropagation
+How does backpropagation work?,backpropagation
+What is gradient descent?,gradient
+Explain gradient descent,gradient
+What is CNN?,convolution
+Explain CNN,convolution
+What is transformer?,attention
+Explain transformer architecture,attention
+What is reinforcement learning?,reward
+What is reward function?,reward
