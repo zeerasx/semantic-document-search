@@ -24,7 +24,7 @@ class VectorStore:
             embeddings=embedding_list
         )
 
-    def search(self,query_embedding,top_k=3):
+    def search(self,query_embedding,top_k=5):
 
         results = (
             self.collection.query(
@@ -35,4 +35,30 @@ class VectorStore:
             )
         )
 
-        return results
+        output = []
+
+        for idx, doc in enumerate(results["documents"][0]):
+            output.append({
+                "chunk_id": int(results["metadatas"][0][idx]["chunk_id"]),
+                "chunk": doc,
+                "distance": results["distances"][0][idx]
+            })
+
+        return output
+    
+    def reset(self):
+
+        try:
+
+            self.client.delete_collection(
+                "documents"
+            )
+
+        except Exception:
+            pass
+
+        self.collection = (
+            self.client.get_or_create_collection(
+                name="documents"
+            )
+        )
