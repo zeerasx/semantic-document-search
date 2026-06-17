@@ -42,7 +42,7 @@ class VectorStore:
         output = []
         for idx, doc in enumerate(results["documents"][0]):
             output.append({
-                "chunk_id": int(results["metadatas"][0][idx]["chunk_id"]),
+                "chunk_id": results["metadatas"][0][idx]["chunk_id"],
                 "document_name": results["metadatas"][0][idx]["document_name"],
                 "page_number": results["metadatas"][0][idx]["page_number"],
                 "chunk": doc,
