@@ -14,7 +14,11 @@ class VectorStore:
         for chunk, embedding in zip(chunks, embeddings):
             ids.append(str(chunk['chunk_id']))
             documents.append(chunk['chunk'])
-            metadatas.append({"chunk_id": chunk['chunk_id']})
+            metadatas.append({
+                "chunk_id": chunk['chunk_id'],
+                "document_name": chunk['document_name'],
+                "page_number": chunk['page_number']
+            })
             embedding_list.append(embedding.tolist())
 
         self.collection.add(
