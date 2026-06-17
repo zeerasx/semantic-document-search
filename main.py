@@ -36,7 +36,7 @@ def main():
     print("///////////////////////////VECTOR STORE SEARCH//////////////////////////////////////////////////////////")
     vector_store = VectorStore()
     vector_store.add_chunks(chunks, embeddings)
-    vector_store_results = vector_store.search(query_embedding=query_embedding, top_k=3)
+    vector_store_results = vector_store.search(query_embedding=query_embedding, top_k=3, document_name="DeepLearningforDummies.pdf")
     for result in vector_store_results:
 
         print(f"Distance: {result['distance']:.4f}")  

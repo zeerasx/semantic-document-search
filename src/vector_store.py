@@ -28,14 +28,18 @@ class VectorStore:
             embeddings=embedding_list
         )
 
-    def search(self,query_embedding,top_k=5):
-
+    def search(self,query_embedding,top_k=5, document_name=None):
+        where_clause = None
+        if document_name:
+            where_clause = {"document_name":document_name}
+            
         results = (
             self.collection.query(
                 query_embeddings=[
                     query_embedding.tolist()
                 ],
-                n_results=top_k
+                n_results=top_k,
+                where=where_clause
             )
         )
 
