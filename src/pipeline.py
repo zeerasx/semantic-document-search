@@ -8,12 +8,12 @@ class IndexingPipeline:
 
     def __init__(
         self,
-        pdf_path,
+        pdf_directory,
         chunk_size=500,
         overlap=100,
         model_name="all-MiniLM-L6-v2"
     ):
-        self.pdf_path = pdf_path
+        self.pdf_directory = pdf_directory
         self.chunk_size = chunk_size
         self.overlap = overlap
         self.model_name = model_name
