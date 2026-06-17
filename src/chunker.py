@@ -8,30 +8,30 @@ class TextChunker:
         self.chunk_size = chunk_size
         self.overlap = overlap
 
-    def chunk_text(self, text):
+    def chunk_pages(self, pages, document_name):
 
         chunks = []
-
-        start = 0
         chunk_id = 0
 
-        while start < len(text):
+        for page in pages:
 
-            end = start + self.chunk_size
+            text = page["text"]
+            start = 0
 
-            chunk_text = text[start:end]
+            while start < len(text):
 
-            chunks.append({
-                "chunk_id":chunk_id, 
-                "chunk": chunk_text})
-            
-            chunk_id += 1
+                end = ( start + self.chunk_size )
 
-            start += (
-                self.chunk_size
-                - self.overlap
-            )
+                chunk_text = (text[start:end])
 
-            
+                chunks.append({
+                    "chunk_id":chunk_id,
+                    "document_name":document_name,
+                    "page_number":page["page_number"],
+                    "chunk":chunk_text
+                })
+
+                chunk_id += 1
+                start += ( self.chunk_size - self.overlap )
 
         return chunks
