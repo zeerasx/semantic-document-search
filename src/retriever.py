@@ -12,7 +12,8 @@ class Retriever:
     def search(
         self,
         query,
-        top_k=5
+        top_k=5,
+        document_name=None
     ):
 
         query_embedding = (
@@ -20,6 +21,7 @@ class Retriever:
         )
 
         return self.vector_store.search(
-            query_embedding=query_embedding,
-            top_k=top_k
+            query_embedding,
+            top_k,
+            document_name
         )

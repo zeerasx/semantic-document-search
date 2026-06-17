@@ -25,7 +25,7 @@ class TextChunker:
                 chunk_text = (text[start:end])
 
                 chunks.append({
-                    "chunk_id":chunk_id,
+                    "chunk_id":f"{document_name}_{chunk_id}",
                     "document_name":document_name,
                     "page_number":page["page_number"],
                     "chunk":chunk_text
