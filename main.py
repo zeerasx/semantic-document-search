@@ -8,8 +8,9 @@ def main():
     # Ingestion
     pdf_path = "data/pdfs/DeepLearningforDummies.pdf"
     loader = PDFLoader(pdf_path)
-    text = loader.extract_text()
-    
+    #text = loader.extract_text()
+    pages = loader.extract_pages()
+
     #Chunking
     print("////////////////////////////CHUNKING/////////////////////////////////////////////////////////")
     chunker = TextChunker(
@@ -17,7 +18,7 @@ def main():
         overlap=100
     )
 
-    chunks = chunker.chunk_text(text)
+    chunks = chunker.chunk_pages(pages, document_name="DeepLearningforDummies.pdf")
 
     print(
         f"Total Chunks: {len(chunks)}"

@@ -5,7 +5,7 @@ class PDFLoader:
         self.file_path = file_path
 
     def extract_pages(self):
-        document = fitz.open(self.pdf_path)
+        document = fitz.open(self.file_path)
 
         pages = []
         for page_num in range(len(document)):
