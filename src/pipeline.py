@@ -2,7 +2,7 @@ from src.pdf_loader import PDFLoader
 from src.chunker import TextChunker
 from src.embedder import Embedder
 from src.vector_store import VectorStore
-
+from src.document_ingestor import DocumentIngestor
 
 class IndexingPipeline:
 
@@ -20,30 +20,33 @@ class IndexingPipeline:
 
     def build(self):
 
-        loader = PDFLoader(
-            self.pdf_path
-        )
-        pages = (loader.extract_pages())
-        document_name = (self.pdf_path.split("/")[-1])
-        chunker = TextChunker(
-            chunk_size=self.chunk_size,
-            overlap=self.overlap
-        )
-        chunks = chunker.chunk_pages(
-            pages,
-            document_name
-        )
-##
+        ingestor = DocumentIngestor(self.pdf_directory)
+
+        documents = (ingestor.load_documents())
+
+        all_chunks = []
+
+        for document in documents:
+            chunker = TextChunker(
+                chunk_size=self.chunk_size,
+                overlap=self.overlap
+            )
+
+            chunks = (chunker.chunk_pages(document["pages"],document["document_name"]))
+
+            all_chunks.extend(chunks)
+#/#
         embedder = Embedder(model_name=self.model_name)
 
-        embeddings = (embedder.embed_chunks(chunks))
+        embeddings = (embedder.embed_chunks(all_chunks))
 
+##
         vector_store = VectorStore()
 
         vector_store.reset()
 
         vector_store.add_chunks(
-            chunks,
+            all_chunks,
             embeddings
         )
 
