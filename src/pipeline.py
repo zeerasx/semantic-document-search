@@ -23,25 +23,20 @@ class IndexingPipeline:
         loader = PDFLoader(
             self.pdf_path
         )
-
-        text = loader.extract_text()
-
+        pages = (loader.extract_pages())
+        document_name = (self.pdf_path.split("/")[-1])
         chunker = TextChunker(
             chunk_size=self.chunk_size,
             overlap=self.overlap
         )
-
-        chunks = chunker.chunk_text(text)
-
-        embedder = Embedder(
-            model_name=self.model_name
+        chunks = chunker.chunk_pages(
+            pages,
+            document_name
         )
+##
+        embedder = Embedder(model_name=self.model_name)
 
-        embeddings = (
-            embedder.embed_chunks(
-                chunks
-            )
-        )
+        embeddings = (embedder.embed_chunks(chunks))
 
         vector_store = VectorStore()
 
