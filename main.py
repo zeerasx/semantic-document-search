@@ -64,25 +64,13 @@ def main():
 
     # Perform search using Vector Store
     print("///////////////////////////VECTOR STORE SEARCH//////////////////////////////////////////////////////////")
-    
     vector_store = VectorStore()
-    print(f"vector_store.collection.count(): {vector_store.collection.count()}")
-    if vector_store.collection.count()==0:
-        print("Vector Store is empty. Adding chunks to vector store...")
-        vector_store.add_chunks(chunks, embeddings)
-    else:
-        print("Vector Store already has chunks. Skipping addition.")
-
+    vector_store.add_chunks(chunks, embeddings)
     vector_store_results = vector_store.search(query_embedding=query_embedding, top_k=3)
-    
-    for doc, distance in zip(
-        vector_store_results["documents"][0],
-        vector_store_results["distances"][0]
-    ):
+    for result in vector_store_results:
 
-        print("\n")
-        print(f"Distance: {distance:.4f}")
-        print(doc[:300])
+        print(f"Distance: {result['distance']:.4f}")    
+        print(result["chunk"][:300])  # Print first 300 characters of the chunk
         print("-" * 50)
 
 if __name__ == "__main__":    

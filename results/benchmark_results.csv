@@ -1,0 +1,12 @@
+query,expected,hit_rate,precision@3,recall,mrr
+What is backpropagation?,backpropagation,1,1.0,1,1.0
+Explain backpropagation,backpropagation,1,1.0,1,1.0
+How does backpropagation work?,backpropagation,1,1.0,1,1.0
+What is gradient descent?,gradient,1,0.3333333333333333,1,1.0
+Explain gradient descent,gradient,1,0.3333333333333333,1,1.0
+What is CNN?,convolution,1,0.6666666666666666,1,1.0
+Explain CNN,convolution,1,0.6666666666666666,1,1.0
+What is transformer?,attention,0,0.0,0,0.0
+Explain transformer architecture,attention,0,0.0,0,0.0
+What is reinforcement learning?,reward,0,0.0,0,0.0
+What is reward function?,reward,0,0.0,0,0.0

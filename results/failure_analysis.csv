@@ -1,0 +1,5 @@
+query,expected,hit_rate,precision@3,recall,mrr
+What is transformer?,attention,0,0.0,0,0.0
+Explain transformer architecture,attention,0,0.0,0,0.0
+What is reinforcement learning?,reward,0,0.0,0,0.0
+What is reward function?,reward,0,0.0,0,0.0
